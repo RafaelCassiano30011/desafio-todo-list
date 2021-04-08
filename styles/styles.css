@@ -47,6 +47,8 @@ body {
 }
 
 .button-nova-tarefa {
+    position: absolute;
+    bottom: 180px;
     width: 200px;
     height: 40px;
     color: white;
