@@ -6,11 +6,10 @@ const $buttonNovaTarefa = document.querySelector('.button-nova-tarefa')
 const $tarefaEmbrulho = document.querySelector('.tarefas-embrulho')
 const $boxTarefas = document.querySelector('.box-tarefas')
 
-
+//adiconar item no array
 const criarTarefa = (valor, div) => {
     const tarefas = listaDeTarefas.read()
     if (valor == '') return div.remove()
-        //adiconar item no array
     const novaTarefa = listaDeTarefas.create({ id: tarefas.length + 1, tarefa: valor })
 
 }
@@ -21,7 +20,6 @@ const imprimir = () => {
     const tarefas = listaDeTarefas.read()
 
     tarefas.forEach((tarefa) => {
-
         const div = document.createElement('div')
         div.classList.add('tarefas-embrulho')
 
@@ -43,21 +41,29 @@ const imprimir = () => {
 
         $boxTarefas.appendChild(div)
 
-
-
+        //Quando clicar no texto mudar para um imput
+        span.addEventListener('click', () => {
+                const inputUpdate = document.querySelector('input')
+                inputUpdate.setAttribute('type', 'text')
+                inputUpdate.value = span.textContent
+                div.appendChild(inputUpdate)
+                span.remove()
+                lixeira.remove()
+                    // criar input
+                inputUpdate.addEventListener('blur', () => {
+                    const arroz = listaDeTarefas.update(tarefa.id, { tarefa: inputUpdate.value })
+                    imprimir()
+                })
+            })
+            //marcar checkbox
         checkbox.addEventListener('click', () => {
-            span.classList.toggle('span-checkbox-on')
-        })
-
+                span.classList.toggle('span-checkbox-on')
+            })
+            //Remover tarefa
         lixeira.addEventListener('click', () => {
             parent = listaDeTarefas.readbyid(lixeira.href)
-
-
             listaDeTarefas.delete(tarefa.id)
             imprimir()
-
-
-
         })
     })
 }

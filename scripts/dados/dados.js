@@ -20,13 +20,29 @@ const listaDeTarefas = {
         tarefa.push(item)
     },
     readbyid: (id) => {
-        for (const parente of listaDeTarefas.read()) {
+        for (const tarefa of listaDeTarefas.read()) {
 
-            if (id === parente.id) {
-                return parente
+            if (id === tarefa.id) {
+                return tarefa
 
             }
         }
+    },
+    update: (tarefaId, data) => {
+        const tarefas = listaDeTarefas.read()
+
+        const ListadeTarefasUpdate = tarefas.map((tarefa) => {
+
+            if (tarefaId === tarefa.id) {
+                const novaListadeTarefas = {...tarefa, ...data }
+
+                return novaListadeTarefas
+            }
+            return tarefa
+        })
+
+        listaDeTarefas.tarefaList = ListadeTarefasUpdate
+        return ListadeTarefasUpdate
     },
 
     delete: (ParentId) => {
